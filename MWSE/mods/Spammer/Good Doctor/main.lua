@@ -39,5 +39,26 @@ local function registerModConfig()
         text = "Spammer's Nexus Profile",
         url = "https://www.nexusmods.com/users/140139148?tab=user+files"
     }
+    page:createDropdown{
+        label = "Log Level",
+        description = "Set the logging level.",
+        options = {
+            {label = "DEBUG", value = "DEBUG"},
+            {label = "INFO", value = "INFO"},
+            {label = "ERROR", value = "ERROR"}, {label = "NONE", value = "NONE"}
+        },
+        variable = mwse.mcm.createTableVariable {
+            id = "logLevel",
+            table = config
+        },
+        -- code that copied over from merlord's mod
+        callback = function(self)
+            for _, log in ipairs(require("Spammer.Good Doctor.logging").loggers) do
+                mwse.log("Setting %s to log level %s", log.name,
+                         self.variable.value)
+                log:setLogLevel(self.variable.value)
+            end
+        end
+    }
 end 
 event.register("modConfigReady", registerModConfig)
