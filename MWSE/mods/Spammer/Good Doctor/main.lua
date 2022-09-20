@@ -17,57 +17,6 @@ event.register("spellResist", function(e)
     end
 end)
 
-local function newSpell(enchantment)
-    local spell = tes3.createObject{objectType = tes3.objectType.spell, getIfExists = false}
-    tes3.setSourceless(spell)
-    spell.alwaysSucceeds = true
-    spell.castType = tes3.spellType.spell
-    spell.magickaCost = 0
-    for index = 1, #enchantment.effects do
-        local effect = spell.effects[index]
-        local enchantmentEffect = enchantment.effects[index]
-        effect.id = enchantmentEffect and enchantmentEffect.id
-        effect.min = enchantmentEffect and enchantmentEffect.min or 0
-        effect.max = enchantmentEffect and enchantmentEffect.max or 0
-        effect.radius = enchantmentEffect and enchantmentEffect.radius or 0
-        effect.rangeType = enchantmentEffect and enchantmentEffect.rangeType or tes3.effectRange.self
-        effect.duration = enchantmentEffect and enchantmentEffect.duration or 0
-        effect.attribute = enchantmentEffect and enchantmentEffect.attribute or -1
-        effect.skill = enchantmentEffect and enchantmentEffect.skill or -1
-    end
-    return spell
-end
-
-
-event.register("simulate", function()
-    if not (paratest and paratest.mobile) then return end
-    if dont then return end
-    if cf.slider == 0 then return end
-    local paralyzed = tes3.isAffectedBy{reference = paratest, effect = tes3.effect.paralyze}
-    if not paralyzed then
-        paratest = nil
-        return
-    end
-    for _,stack in pairs(paratest.object.equipment) do
-        if stack.object.enchantment and stack.itemData then
-            for _,effect in pairs(stack.object.enchantment.effects) do
-                if (effect.id == tes3.effect.cureParalyzation) then
-                    local chargeCost = tes3.calculateChargeUse{mobile = paratest.mobile, enchantment = stack.object.enchantment}
-                    if stack.itemData.charge >= chargeCost then
-                        tes3.cast{reference = paratest, target = paratest, instant = true, alwaysSucceeds = true, bypassResistances = false, spell = newSpell(stack.object.enchantment)}
-                        stack.itemData.charge = stack.itemData.charge-chargeCost
-                        tes3.messageBox("%s freed %s from paralyzation!", stack.object.name, paratest.object.name)
-                        dont = true
-                        timer.start{duration = cf.slider, callback = function() dont = false end}
-                        return
-                    end
-                end
-            end
-        end
-    end
-end)
-
-
 local function registerModConfig()
     local template = mwse.mcm.createTemplate(mod.name)
     template:saveOnClose(mod.name, cf)
