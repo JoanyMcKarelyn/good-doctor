@@ -9,25 +9,13 @@ event.register("spellResist", function(e)
         (e.effect.id == tes3.effect.cureBlightDisease and
             config.pacifyBlighted[e.target.baseObject.id:lower()]) then
         e.target.mobile.fight = 0
+        logger:debug("%s's fight value is now: %s", e.target.id,
+                     e.target.mobile.fight)
         e.target.mobile.flee = 100
-            e.target.mobile.actionData.aiBehaviorState = tes3.aiBehaviorState.flee
-            e.target.mobile:stopCombat(true)
-        end
-    end
-    if (e.effect.id == tes3.effect.cureBlightDisease) and string.startswith(e.target.object.name:lower(), "blighted") then
-        e.target.data.spa_blightDiseaseCured = true
-        e.target.mobile.fight = 0
-        local tresh = e.caster.mobile.personality.current
-        if math.random(100) <= tresh/8 then
-            tes3.setAIFollow{reference = e.target, target = e.caster, reset = false, duration = tresh*6}
-        else
-            e.target.mobile.flee = 100
-            e.target.mobile.actionData.aiBehaviorState = tes3.aiBehaviorState.flee
-            e.target.mobile:stopCombat(true)
-        end
+        e.target.mobile.actionData.aiBehaviorState = tes3.aiBehaviorState.flee
+        e.target.mobile:stopCombat(true)
     end
 end)
-
 
 local function newSpell(enchantment)
     local spell = tes3.createObject{objectType = tes3.objectType.spell, getIfExists = false}
