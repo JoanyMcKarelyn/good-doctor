@@ -7,11 +7,13 @@ Is a mod originally by Spammer21, edited by JosephMcKean.
 Original: 
 - Not compatible with No Disease Label.
 - Can only pacify creatures whose name has "Diseased" or "Blighted" in it, modded or not.
+- Can't pacify Wild Guar because their name doesn't have "Diseased" in it
 - There's also a slight chance for them to start following you for a short time if they like you enough.
 
 Joseph Edit:
 - Compatible with No Disease Label.
 - In theory, you can pacify every creature in your game but the default config if only for the two domestic animals guar and shalk. Users need to config themselves if they want to be able to pacify other creatures. (See the end of the readme for further instructions)
+- And that means you can cure Wild Guar
 - Creatures won't follow you after being cured.
 
 ## How to config creatures to allow them to be pacified?
