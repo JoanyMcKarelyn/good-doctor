@@ -1,0 +1,14 @@
+{
+  "pacifyDiseased":{
+    "shalk_diseased":true,
+    "guar_feral":true
+  },
+  "pacifyBlighted":{
+    "shalk_blighted":true
+  },
+  "logLevel":"INFO",
+  "peaceful":{
+    "guar":true,
+    "shalk":true
+  }
+}
