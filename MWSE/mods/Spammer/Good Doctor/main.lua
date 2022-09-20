@@ -39,13 +39,5 @@ local function registerModConfig()
         text = "Spammer's Nexus Profile",
         url = "https://www.nexusmods.com/users/140139148?tab=user+files"
     }
-
-    local category2 = page:createCategory("Cure Paralysis Cooldown:")
-    category2:createSlider{label = "%s Seconds", description = "Cooldown between two usages. Setting this value to 0 will disable this feature of the mod. [Default: 5]", min = 0, max = 60, step = 1, jump = 5, variable = mwse.mcm.createTableVariable{id = "slider", table = cf}}
-
-    --local category = page:createCategory("New Follower :")
-    --category:createSlider{label = "%s Seconds", description = "Chance to get a new buddy. [Default: 15]", min = 0, max = 60, step = 1, jump = 5, variable = mwse.mcm.createTableVariable{id = "sliderpercent", table = cf}}
-
 end 
 event.register("modConfigReady", registerModConfig)
-
