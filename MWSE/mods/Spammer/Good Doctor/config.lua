@@ -3,7 +3,7 @@ this.configPath = "Good Doctor (Joseph Edit)"
 this.defaultConfig = {
     logLevel = "INFO",
     peaceful = {["guar"] = true, ["shalk"] = true},
-    pacifyDiseased = {["shalk_diseased"] = true, ["guar_feral"] = true},
+    pacifyDiseased = {["shalk_diseased"] = true, "shalk_diseased_hram":true, ["guar_feral"] = true},
     pacifyBlighted = {["shalk_blighted"] = true}
 }
 local inMemConfig = mwse.loadConfig(this.configPath, this.defaultConfig)
