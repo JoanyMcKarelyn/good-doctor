@@ -17,14 +17,28 @@ event.register("spellResist", function(e)
     end
 end)
 
+local function onInitialized()
+    for creature in tes3.iterateObjects(tes3.objectType.creature) do
+        if config.peaceful[creature.id] then creature.aiConfig.fight = 0 end
+    end
+end
+event.register("initialized", onInitialized)
+
 local function registerModConfig()
     local template = mwse.mcm.createTemplate(mod.name)
-    template:saveOnClose(mod.name, cf)
+    template.onClose = function() config.save() end
     template:register()
 
-    local page = template:createSideBarPage({label="\""..mod.name.."\" Settings"})
-    page.sidebar:createInfo{ text = "Welcome to \""..mod.name.."\" Configuration Menu. \n \n \n A mod by Spammer."}
-    page.sidebar:createHyperLink{ text = "Spammer's Nexus Profile", url = "https://www.nexusmods.com/users/140139148?tab=user+files" }
+    local page =
+        template:createPage({label = "\"" .. mod.name .. "\" Settings"})
+    page:createInfo{
+        text = "Welcome to \"" .. mod.name .. "\" Configuration Menu. \n \n \n" ..
+            "Original mod by Spammer, edited by JosephMcKean."
+    }
+    page:createHyperLink{
+        text = "Spammer's Nexus Profile",
+        url = "https://www.nexusmods.com/users/140139148?tab=user+files"
+    }
 
     local category2 = page:createCategory("Cure Paralysis Cooldown:")
     category2:createSlider{label = "%s Seconds", description = "Cooldown between two usages. Setting this value to 0 will disable this feature of the mod. [Default: 5]", min = 0, max = 60, step = 1, jump = 5, variable = mwse.mcm.createTableVariable{id = "slider", table = cf}}
@@ -32,9 +46,6 @@ local function registerModConfig()
     --local category = page:createCategory("New Follower :")
     --category:createSlider{label = "%s Seconds", description = "Chance to get a new buddy. [Default: 15]", min = 0, max = 60, step = 1, jump = 5, variable = mwse.mcm.createTableVariable{id = "sliderpercent", table = cf}}
 
-end --event.register("modConfigReady", registerModConfig)
-
-local function initialized()
-print("["..mod.name..", by Spammer] "..mod.ver.." Initialized!")
-end event.register("initialized", initialized, {priority = -1000})
+end 
+event.register("modConfigReady", registerModConfig)
 
