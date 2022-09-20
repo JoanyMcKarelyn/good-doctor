@@ -111,5 +111,5 @@ local function registerModConfig()
         rightListLabel = "Creatures",
         filters = {{label = "Creatures", callback = createCreatureList}}
     }
-end 
+end
 event.register("modConfigReady", registerModConfig)
