@@ -1,33 +1,6 @@
-local mod = {
-    name = "Good Doctor",
-    ver = "1.0",
-    cf = {onOff = true, key = {keyCode = tes3.scanCode.l, isShiftDown = false, isAltDown = false, isControlDown = false}, dropDown = 0, slider = 5, sliderpercent = 15, blocked = {}, npcs = {}, textfield = "hello", switch = false}
-            }
-local cf = mwse.loadConfig(mod.name, mod.cf)
-local dont = false
-local paratest = nil
+local mod = {name = "Good Doctor (Joseph Edit)", ver = "1.0"}
+local config = require("Spammer.Good Doctor.config").config
 
----@param e uiObjectTooltipEventData
-event.register("uiObjectTooltip", function(e)
-
-    if not (e.reference and e.reference.data and e.reference.data.spa_diseaseCured) then
-        return
-    end
-    local label = e.tooltip:findChild(tes3ui.registerID("HelpMenu_name"))
-    label.text = string.gsub(label.text, "Diseased ", "")
-end)
-
----@param e uiObjectTooltipEventData
-event.register("uiObjectTooltip", function(e)
-
-    if not (e.reference and e.reference.data and e.reference.data.spa_blightDiseaseCured) then
-        return
-    end
-    local label = e.tooltip:findChild(tes3ui.registerID("HelpMenu_name"))
-    label.text = string.gsub(label.text, "Blighted ", "")
-end)
-
----comment
 ---@param e table|spellResistEventData
 event.register("spellResist", function(e)
     if e.effect.id == tes3.effect.paralyze then
