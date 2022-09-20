@@ -1,18 +1,15 @@
 local mod = {name = "Good Doctor (Joseph Edit)", ver = "1.0"}
 local config = require("Spammer.Good Doctor.config").config
+local logger = require("Spammer.Good Doctor.logging").createLogger("main")
 
 ---@param e table|spellResistEventData
 event.register("spellResist", function(e)
-    if e.effect.id == tes3.effect.paralyze then
-        paratest = e.target
-    end
-    if (e.effect.id == tes3.effect.cureCommonDisease) and string.startswith(e.target.object.name:lower(), "diseased") then
-        e.target.data.spa_diseaseCured = true
+    if (e.effect.id == tes3.effect.cureCommonDisease and
+        config.pacifyDiseased[e.target.baseObject.id:lower()]) or
+        (e.effect.id == tes3.effect.cureBlightDisease and
+            config.pacifyBlighted[e.target.baseObject.id:lower()]) then
         e.target.mobile.fight = 0
-        if math.random(100) <= cf.sliderpercent then
-            tes3.setAIFollow{reference = e.target, target = e.caster, reset = false}
-        else
-            e.target.mobile.flee = 100
+        e.target.mobile.flee = 100
             e.target.mobile.actionData.aiBehaviorState = tes3.aiBehaviorState.flee
             e.target.mobile:stopCombat(true)
         end
