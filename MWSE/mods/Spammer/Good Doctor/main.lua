@@ -72,5 +72,44 @@ local function registerModConfig()
         table.sort(creatures)
         return creatures
     end
+    template:createExclusionsPage{
+        label = "Peaceful Creatures",
+        description = "Move creatures into the left list to allow them to be peaceful." ..
+            "\n" .. "\n" ..
+            "Requires a RESTART and does not affect references that are already created.",
+        variable = mwse.mcm.createTableVariable {
+            id = "peaceful",
+            table = config
+        },
+        leftListLabel = "Peaceful Creatures",
+        rightListLabel = "Creatures",
+        filters = {{label = "Creatures", callback = createCreatureList}}
+    }
+    template:createExclusionsPage{
+        label = "Pacified by Cure Common Disease",
+        description = "Move creatures into the left list to allow them to be pacified by Cure Common Disease spell." ..
+            "\n" .. "\n" ..
+            "Does not affect references that are already created.",
+        variable = mwse.mcm.createTableVariable {
+            id = "pacifyDiseased",
+            table = config
+        },
+        leftListLabel = "Creatures that can be pacified by Cure Common Disease spell",
+        rightListLabel = "Creatures",
+        filters = {{label = "Creatures", callback = createCreatureList}}
+    }
+    template:createExclusionsPage{
+        label = "Pacified by Cure Blight Disease",
+        description = "Move creatures into the left list to allow them to be pacified by Cure Blight Disease spell." ..
+            "\n" .. "\n" ..
+            "Does not affect references that are already created.",
+        variable = mwse.mcm.createTableVariable {
+            id = "pacifyBlighted",
+            table = config
+        },
+        leftListLabel = "Creatures that can be pacified by Cure Blight Disease spell",
+        rightListLabel = "Creatures",
+        filters = {{label = "Creatures", callback = createCreatureList}}
+    }
 end 
 event.register("modConfigReady", registerModConfig)
