@@ -60,5 +60,17 @@ local function registerModConfig()
             end
         end
     }
+    local function createCreatureList()
+        local creatures = {}
+        for creature in tes3.iterateObjects(tes3.objectType.creature) do
+            if not (creature.baseObject and creature.baseObject.id ~=
+                creature.id) then
+                creatures[#creatures + 1] =
+                    (creature.baseObject or creature).id:lower()
+            end
+        end
+        table.sort(creatures)
+        return creatures
+    end
 end 
 event.register("modConfigReady", registerModConfig)
