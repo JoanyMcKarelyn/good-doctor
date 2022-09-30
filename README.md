@@ -16,8 +16,8 @@ Joseph Edit:
 - And that means you can cure Wild Guar
 - Creatures won't follow you after being cured.
 
-## How to config creatures to allow them to be pacified?
+## How to config to allow more creatures to be pacified?
 
-If you want this mod to function similarly to the original mod, you will need to add more creature to the tables in config file. I have created an alternative config json file for people who want to pacify **vanilla** diseased and blighted creatures. So just copy `..\Data Files\MWSE\mods\Spammer\Good Doctor\alternativeConfig\Good Doctor (Joseph Edit).json` to `..\Data Files\MWSE\config\`. If you launch the game and go into the Mod Config Menu of this mod, more creatures like `alit_diseased` should show up in the left panel of exclusion page Pacified by Cure Common Disease. 
+If you want this mod to function similarly to the original mod, you will need to add more creature to the tables in config file. I have created an alternative config json file for people who want to pacify **vanilla** diseased and blighted creatures. So just copy `..\Data Files\MWSE\mods\Spammer\Good Doctor\alternativeConfig\Good Doctor (Joseph Edit).json` to `..\Data Files\MWSE\config\`. If you launch the game and go into the Mod Config Menu of this mod, more creatures like `alit_diseased` should show up in the left panel of exclusion page Pacified by Cure Common Disease. I personally find it makes no sense if the healthy creatures attack you anyway when the cured creatures don't. But the option is there. 
 
 If you still have questions, open an issue or ask me (@JosephMcKean) in Morrowind Modding Discord. 
