@@ -15,8 +15,9 @@ local config = mwse.loadConfig(configPath, defaultConfig)
 
 ---@param e table|spellResistEventData
 event.register("spellResist", function(e)
-	if (e.effect.id == tes3.effect.cureCommonDisease and config.pacifyDiseased[e.target.baseObject.id:lower()]) or
-	(e.effect.id == tes3.effect.cureBlightDisease and config.pacifyBlighted[e.target.baseObject.id:lower()]) then
+	if config and
+	((e.effect.id == tes3.effect.cureCommonDisease and config.pacifyDiseased[e.target.baseObject.id:lower()]) or
+	(e.effect.id == tes3.effect.cureBlightDisease and config.pacifyBlighted[e.target.baseObject.id:lower()])) then
 		e.target.mobile.fight = 0
 		e.target.mobile.flee = 100
 		e.target.mobile.actionData.aiBehaviorState = tes3.aiBehaviorState.flee
@@ -26,7 +27,7 @@ end)
 
 local function onInitialized()
 	for creature in tes3.iterateObjects(tes3.objectType.creature) do
-		if config.peaceful[creature.id] then
+		if config and config.peaceful[creature.id] then
 			creature.aiConfig.fight = 0
 		end
 	end
@@ -35,9 +36,7 @@ event.register("initialized", onInitialized)
 
 local function registerModConfig()
 	local template = mwse.mcm.createTemplate(mod)
-	template.onClose = function()
-		config.save()
-	end
+	template:saveOnClose(configPath, config)
 	template:register()
 
 	local page = template:createPage({ label = "\"" .. mod .. "\" Settings" })
